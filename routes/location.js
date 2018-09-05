@@ -37,5 +37,19 @@ async function getLocation(key) {
     }
 }
 
+async function getPlaceId(id) {
+    try {
+        const res = await axios.get(place_id_url, {
+            params: {
+                placeid: id,
+                key: api_key
+            },
+
+        })
+        return res.data
+    } catch (e) {
+        throw e.response
+    }
+}
 
 module.exports = router;
