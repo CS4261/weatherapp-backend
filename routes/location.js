@@ -17,5 +17,25 @@ router.get('/location/:name', async function (req, res, next) {
     }
 });
 
+async function getLocation(key) {
+    try {
+        const res = await axios.get(place_url, {
+            params: {
+                input: key,
+                key: api_key
+            },
+            cancelToken: new CancelToken(function executor(c) {
+                if (cancel !== null) {
+                    cancel()
+                }
+                cancel = c;
+            })
+        })
+        return res.data
+    } catch (e) {
+        throw e.response
+    }
+}
+
 
 module.exports = router;
